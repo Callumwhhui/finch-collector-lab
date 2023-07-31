@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+import os
+import environ
+
+environ.Env()
+environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -79,7 +85,7 @@ DATABASES = {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': 'finchcollector',
     'USER': 'huicallum',
-    'PASSWORD': 'RGsZ1rXc2JWN',
+    'PASSWORD': os.environ['DB_PASSWORD'],
     'HOST': 'ep-sparkling-waterfall-94002609.eu-central-1.aws.neon.tech',
     'PORT': '5432',
   }
