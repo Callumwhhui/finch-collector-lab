@@ -8,11 +8,22 @@ FED = (
 )
 # Create your models here.
 
+class Toy(models.Model):
+    name = models.CharField()
+    type = models.CharField()
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('toys_detail', kwargs={'pk': self.id})
+
 class Finch(models.Model):
     species = models.CharField()
     scientific_name = models.CharField()
     habitat = models.CharField()
     status = models.CharField()
+    toys = models.ManyToManyField(Toy)
 
     def __str__(self):
         return self.species

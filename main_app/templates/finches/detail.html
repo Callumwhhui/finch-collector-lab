@@ -38,8 +38,48 @@
         </table>
     </div>
 </div>
-
-<script>
+<hr>
+<div class="row">
+    <div class="col s6">
+        <h2>{{ finch.species }}'s Toys</h2>
+        {% if finch.toys.count %}
+            {% for toy in finch.toys.all %}
+            <div class="card">
+                <span class="card-title">
+                    A <span style="color: {{toy.type}}">{{ toy.type }}</span> toy, {{toy.name}}
+                </span>
+            </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h5>No Toys Yet!</h5>
+    {% endif %}
+    
+    <div class="col s6">
+        <h2>Available Toys</h2>
+        {% if toys.count %}
+        {% for toy in toys.all %}
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">
+                    A <span style="color: {{toy.type}}">{{ toy.type }}</span> toy, {{toy.name}}
+                </span>
+            </div>
+            <div class="card-action">
+                <form action="{% url 'assoc_toy' finch.id toy.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">Add</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h5>{{ finch.species}}  Already Has All Toys Available</h5>
+        {% endif %}
+    </div>
+</div>
+    
+    <script>
     const dateEl = document.getElementById('id_date');
     M.Datepicker.init(dateEl, {
         format: 'yyyy-mm-dd',
